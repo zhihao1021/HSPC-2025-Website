@@ -1,0 +1,330 @@
+.personalData {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.25rem;
+    gap: 2rem;
+    color: #FFF;
+
+    .info,
+    .field {
+        width: max(calc(50% - 1rem));
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        @include width-not-enough(54rem) {
+            width: 100%;
+        }
+
+        .key {
+            width: 5.25rem;
+            font-size: 1.25rem;
+        }
+    }
+
+    .info {
+        &:has(.did) {
+            font-size: 1rem;
+
+            .key {
+                font-size: inherit;
+            }
+        }
+
+        .value {
+            flex: 1;
+            text-wrap: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &[data-verify=false] {
+                color: $wrong;
+            }
+
+            &[data-verify=true] {
+                color: $accept;
+            }
+        }
+
+        .copy {
+            position: relative;
+            color: rgba($context, 0.3);
+            border: 0.05rem solid rgba($context, 0.3);
+            text-indent: 0.5em;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            border-radius: 0.25rem;
+            user-select: none;
+            cursor: pointer;
+            transition: color 0.3s, border-color 0.3s;
+
+            &:hover {
+                color: $context;
+                border-color: $context;
+
+                &::before,
+                &::after {
+                    color: $context;
+                }
+            }
+
+            &::before,
+            &::after {
+                position: absolute;
+                display: block;
+                top: 0;
+                right: 0.5rem;
+                width: fit-content;
+                font-size: 0.8rem;
+                color: rgba($context, 0.3);
+                transition: color 0.3s, transform 0.3s;
+            }
+
+            &::after {
+                content: "content_copy";
+                transform: scale(1);
+            }
+
+            &::before {
+                content: "done";
+                transform: scale(0);
+            }
+
+            &[data-copy=true] {
+                color: $accept;
+                border-color: $accept;
+
+                &::before,
+                &::after {
+                    color: $accept;
+                }
+
+                &::before {
+                    transform: scale(1);
+                }
+
+                &::after {
+                    transform: scale(0);
+                }
+            }
+        }
+    }
+
+    .field {
+
+        .inputBox,
+        .dropDown,
+        .buttons {
+            position: relative;
+            flex: 1;
+            height: 2rem;
+            line-height: 2rem;
+            color: #FFF8;
+            transition: color 0.3s;
+        }
+
+        .inputBox {
+            input {
+                display: block;
+                height: 100%;
+                width: 100%;
+                box-sizing: border-box;
+                line-height: inherit;
+                border: none;
+                outline: none;
+                color: inherit;
+                font-size: inherit;
+                background-color: transparent;
+            }
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                height: 0.05rem;
+            }
+
+            &::before {
+                left: 0;
+                width: 100%;
+                background-color: rgba($context, 0.3);
+            }
+
+            &::after {
+                left: 25%;
+                width: 0;
+                background-color: $context;
+                transition: width 0.3s, left 0.3s;
+            }
+
+            &:has(input:focus) {
+                color: #FFF;
+
+                &::after {
+                    left: 0;
+                    width: 100%;
+                }
+            }
+        }
+
+        .dropDown {
+            border: 0.05rem solid rgba($context, 0.3);
+            cursor: pointer;
+            transition: border-color 0.3s;
+            font-weight: 200;
+            text-indent: 0.5rem;
+            font-size: 1rem;
+
+            &:hover,
+            &:has(input:checked) {
+                border-color: $context;
+
+                &::after {
+                    color: $context;
+                }
+            }
+
+            &::after {
+                content: "keyboard_arrow_down";
+                position: absolute;
+                top: calc(50% - 0.75rem);
+                right: 0.5rem;
+                height: 1.5rem;
+                line-height: 1.5rem;
+                transition: color 0.3s, transform 0.3s;
+            }
+
+            &:has(input:checked) {
+                .mask {
+                    height: 8rem;
+                }
+
+                &::after {
+                    transform: rotate(180deg);
+                }
+            }
+
+            .mask {
+                position: absolute;
+                overflow: hidden;
+                top: calc(100% - 0.05em);
+                left: -0.05rem;
+                width: calc(100%);
+                height: 0;
+                border: inherit;
+                background-color: $background;
+                transition: height 0.3s;
+
+                .options {
+                    position: absolute;
+                    overflow-y: auto;
+                    height: 8rem;
+                    width: 100%;
+
+                    .option {
+                        width: 100%;
+                        transition: color 0.2s, background-color 0.2s;
+
+                        &:hover {
+                            color: $background;
+                            background-color: $context;
+                        }
+                    }
+                }
+            }
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            button {
+                display: block;
+                width: min(max(30%, 4rem), 45%);
+                height: 2rem;
+                line-height: 2rem;
+                font-size: inherit;
+                color: inherit;
+                background-color: transparent;
+                outline: none;
+                border: 0.05rem solid rgba($context, 0.3);
+                border-radius: 0.5rem;
+                transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+
+                &:hover,
+                &[data-selected=true] {
+                    color: $background;
+                    background-color: $context;
+                    border-color: $context;
+                }
+            }
+        }
+
+        &:has(img) {
+            align-items: flex-start;
+        }
+
+        img {
+            width: calc(100% - 5.25rem);
+        }
+    }
+
+    .toolBar {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1rem;
+
+        .message {
+            font-size: 1rem;
+
+            &[data-status=true] {
+                color: $accept;
+            }
+
+            &[data-status=false] {
+                color: $wrong;
+            }
+        }
+
+        .uploadSid,
+        .submit {
+            color: $context;
+            background-color: $accept;
+            box-shadow: 0.1rem 0.1rem 0.2rem -0.1rem #000;
+            font-size: 1rem;
+            padding: 0.25rem 1rem;
+            height: 2rem;
+            line-height: 1.5rem;
+            border-radius: 0.25rem;
+            box-sizing: border-box;
+            cursor: pointer;
+            text-wrap: nowrap;
+            transition: transform 0.3s,
+                color 0.3s,
+                background-color 0.3s;
+
+            &:hover {
+                transform: translateY(-0.1rem);
+            }
+        }
+
+        .uploadSid {
+            background-color: #F80;
+
+            input {
+                display: none;
+            }
+        }
+
+        .submit {
+            &:disabled {
+                color: rgba($context, 0.3);
+                background-color: rgba($context, 0.3);
+            }
+        }
+    }
+}

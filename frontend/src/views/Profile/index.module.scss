@@ -1,0 +1,100 @@
+.registerPage {
+    position: relative;
+    width: min($content-width, 42rem);
+    margin: auto;
+    padding: 4.5rem 0;
+    isolation: isolate;
+
+    h1 {
+        text-align: center;
+        color: $primary-50;
+        font-size: 2rem;
+        height: 3rem;
+        margin: 1.5rem 0;
+    }
+
+    .tabBar {
+        display: flex;
+        margin: 1.5rem 0;
+        height: 2rem;
+
+        a {
+            padding: 0.15rem 1rem;
+            color: rgba($context, 0.3);
+            border: 0.05rem solid rgba($context, 0.3);
+            transition: color 0.3s, border-color 0.3s;
+            height: 1.6rem;
+            line-height: 1.6rem;
+
+            &:hover,
+            &[data-selected=true] {
+                color: $context;
+                border-color: $context;
+            }
+
+            &:first-child {
+                border-radius: 0.5rem 0 0 0.5rem;
+            }
+
+            &:last-child {
+                border-radius: 0 0.5rem 0.5rem 0;
+            }
+        }
+    }
+
+    .loading {
+        position: absolute;
+        top: calc(14rem - 6px);
+        left: -6px;
+        height: calc(100vh - 18.5rem + 12px);
+        width: calc(100% + 12px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        z-index: 10;
+        pointer-events: none;
+        opacity: 0;
+        transition: backdrop-filter 0.3s, opacity 0.3s;
+
+        &[data-show=true] {
+            opacity: 1;
+            pointer-events: initial;
+            backdrop-filter: blur(3px);
+
+            div {
+                transform: translateY(0);
+            }
+        }
+
+        div {
+            border-radius: 0.4rem;
+            width: 0.8rem;
+            height: 1rem;
+            background-color: $context;
+            animation: loading-animation linear 1s infinite forwards;
+            transition: transform 0.3s;
+            transform: translateY(-3rem);
+
+            @for $i from 1 through 5 {
+                &:nth-child(#{$i}) {
+                    animation-delay: ($i - 1) * 0.2s;
+                }
+            }
+
+            @keyframes loading-animation {
+                0% {
+                    height: 1rem;
+                }
+
+                24% {
+                    height: 2.5rem;
+                }
+
+                48% {
+                    height: 1rem;
+                }
+            }
+        }
+    }
+}

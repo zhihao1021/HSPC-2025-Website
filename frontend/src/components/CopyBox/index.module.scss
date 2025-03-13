@@ -1,0 +1,70 @@
+.copy {
+    position: relative;
+    color: rgba($context, 0.3);
+    border: 0.05rem solid rgba($context, 0.3);
+    border-radius: 0.25em;
+    user-select: none;
+    cursor: pointer;
+    padding: 0 2em 0 0.5em;
+    box-sizing: border-box;
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s, border-color 0.3s;
+
+    &:hover {
+        color: $context;
+        border-color: $context;
+    }
+
+    .icon {
+        position: absolute;
+        height: 100%;
+        width: 1.5em;
+        right: 0;
+        top: 0;
+        text-align: center;
+        border-left: 0.05rem solid;
+        border-color: inherit;
+
+        div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            line-height: inherit;
+            font-size: 0.9em;
+            line-height: 1.6em;
+            transition: transform 0.3s;
+
+            &.doneIcon,
+            &.errorIcon {
+                transform: scale(0);
+            }
+        }
+    }
+
+    &[data-success=true] .copyIcon,
+    &[data-fail=true] .copyIcon {
+        transform: scale(0);
+    }
+
+    &[data-success=true] {
+        color: $accept;
+        border-color: $accept;
+
+        .doneIcon {
+            transform: scale(1) !important;
+        }
+    }
+
+    &[data-fail=true] {
+        color: $wrong;
+        border-color: $wrong;
+
+        .errorIcon {
+            transform: scale(1) !important;
+        }
+    }
+}

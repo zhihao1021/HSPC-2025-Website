@@ -1,0 +1,37 @@
+.loading {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #222A;
+    transition: opacity 0.3s;
+
+    .box {
+        font-size: 1.5rem;
+        transition: transform 0.3s;
+    }
+
+    &[data-show=true] {
+        opacity: 1;
+        pointer-events: initial;
+
+        .box {
+            transform: translateY(0);
+        }
+    }
+
+    &[data-show=false] {
+        opacity: 0;
+        pointer-events: none;
+
+        .box {
+            transform: translateY(-30vh);
+        }
+    }
+}

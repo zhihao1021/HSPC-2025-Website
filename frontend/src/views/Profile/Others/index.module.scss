@@ -1,0 +1,37 @@
+.others {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.25rem;
+    gap: 1rem;
+
+    .field {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+
+        .key {
+            width: 6rem;
+        }
+
+        button {
+            width: 8rem;
+            padding: 0.25rem 0;
+            font-size: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            color: $wrong;
+            border: 0.1rem solid $wrong;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s, color 0.3s;
+
+            &:hover {
+                color: $context;
+                background-color: $wrong;
+            }
+        }
+    }
+}

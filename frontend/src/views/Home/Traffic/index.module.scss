@@ -1,0 +1,39 @@
+.traffic {
+    min-height: 100vh;
+    width: $content-width;
+    margin: 0 auto;
+    padding: 4.5rem 0;
+    box-sizing: border-box;
+
+    h2 {
+        font-size: 2rem;
+        line-height: 2.9rem;
+        margin: 1.05rem 0;
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 1.7rem;
+        color: $background-2;
+    }
+
+    h4 {
+        font-size: 1.35rem;
+        color: $context;
+        margin: 1rem 0;
+    }
+
+    div {
+        font-size: 1.25rem;
+    }
+
+    iframe {
+        display: block;
+        width: 90%;
+        border: none;
+        margin: 0 auto;
+        margin-top: 2.5rem;
+        height: calc(100vh - 9rem);
+        border-radius: 0.5rem;
+    }
+}

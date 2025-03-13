@@ -1,0 +1,31 @@
+.info {
+    height: 100vh;
+    width: 100%;
+    // width: $content-width;
+    margin: auto;
+    padding: 4.5rem 0;
+    box-sizing: border-box;
+    background-color: $background-2;
+
+    .box {
+        height: 100%;
+        width: $content-width;
+        margin: auto;
+    }
+
+    h2 {
+        font-size: 2rem;
+        line-height: 2.9rem;
+        margin: 1.05rem 0;
+        text-align: center;
+        color: $context-2;
+    }
+
+    object {
+        display: block;
+        margin: 0 auto;
+        width: min(95vw, calc((100vh - 14rem) * 1.5));
+        height: calc(100vh - 14rem);
+        border-radius: 0.5rem;
+    }
+}

@@ -1,0 +1,170 @@
+.about {
+    height: 100vh;
+    width: $content-width;
+    margin: auto;
+    padding: 4.5rem 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+        font-size: 2rem;
+        line-height: 2.9rem;
+        margin: 1.05rem 0;
+    }
+
+    .content {
+        position: relative;
+        height: calc(min(100vh - 14rem, 42rem));
+        padding-left: max(min(12rem, 20vw), 7.5rem);
+        overflow: hidden;
+
+        .turntable {
+            position: absolute;
+            top: calc(min(50vh - 7rem, 21rem) - 100vh);
+            left: calc(-200vh + 2.8rem);
+            height: 200vh;
+            width: 200vh;
+            transform: rotate(0deg);
+            border: 0.1rem solid #FFF;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            pointer-events: none;
+
+            &[data-sel="0"] {
+                transform: rotate(5deg);
+
+                .option {
+                    transform: rotate(-5deg);
+                }
+            }
+
+            &[data-sel="2"] {
+                transform: rotate(-5deg);
+
+                .option {
+                    transform: rotate(5deg);
+                }
+            }
+
+            .option {
+                position: absolute;
+                right: 0;
+                font-size: 1rem;
+                height: 2rem;
+                width: 5rem;
+                line-height: 2rem;
+                text-align: center;
+                background-color: $background;
+                cursor: pointer;
+                color: rgba($context, 0.6);
+                pointer-events: initial;
+                transition:
+                    transform 0.3s,
+                    color 0.3s;
+
+                &:hover {
+                    color: $context;
+                }
+
+                &[data-selected=true] {
+                    color: $primary-700;
+                }
+
+                &:nth-child(1) {
+                    top: calc(50% * (1 - sin(5deg)) - 1rem);
+                    right: calc(50% * (1 - cos(5deg)) - 2.5rem);
+                }
+
+                &:nth-child(2) {
+                    top: calc(50% - 1rem);
+                    right: -2.5rem;
+                }
+
+                &:nth-child(3) {
+                    top: calc(50% * (1 + sin(5deg)) - 1rem);
+                    right: calc(50% * (1 - cos(5deg)) - 2.5rem);
+                }
+            }
+        }
+
+        .box {
+            width: min(36rem, calc($content-width - max(min(12rem, 20vw), 7.5rem)));
+
+            .imageBox {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 8/5;
+                overflow: hidden;
+                border-radius: 0.5rem;
+
+                img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    display: block;
+                    object-fit: cover;
+                    object-position: center;
+                    --transition: left 0.3s;
+
+                    &[data-show="-1"] {
+                        left: -100%;
+                    }
+
+                    &[data-show="1"] {
+                        left: 100%;
+                    }
+                }
+            }
+
+            .titleBox,
+            .contextBox {
+                position: relative;
+                overflow: hidden;
+
+                h3,
+                div {
+                    position: absolute;
+                    top: 0;
+                    transition: top 0.3s, opacity 0.3s;
+
+                    &[data-show="-1"] {
+                        top: -2rem;
+                    }
+
+                    &[data-show="1"] {
+                        top: 2rem;
+                    }
+                }
+            }
+
+            .titleBox {
+                height: 2rem;
+                margin: 0.5rem 0;
+
+                h3 {
+                    height: 2rem;
+                    line-height: 2rem;
+                    font-size: 1.5rem;
+                    margin: 0;
+                }
+            }
+
+            .contextBox {
+                height: calc(100vh - 17rem - 5 * min(36rem, calc($content-width - max(min(12rem, 20vw), 7.5rem))) / 8);
+
+                div {
+                    white-space: pre-line;
+                }
+
+                div:not([data-show="0"]) {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}

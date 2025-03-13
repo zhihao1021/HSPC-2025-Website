@@ -1,0 +1,106 @@
+.teamData {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.25rem;
+    gap: 2rem;
+    color: #FFF;
+
+    &:has(.or) {
+        gap: 1rem;
+    }
+
+    .row {
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+        transition: gap 0.3s;
+
+        &:has(button:disabled) {
+            gap: 0;
+        }
+
+        .noTeamInput {
+            flex: 1;
+        }
+
+        .mask {
+            position: relative;
+            height: 2rem;
+            width: 6rem;
+            overflow: hidden;
+            transition: width 0.3s;
+
+            &:has(button:disabled) {
+                width: 0;
+            }
+
+            button {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                gap: 0.5rem;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 6rem;
+                outline: none;
+                background-color: transparent;
+                color: rgba($context, 0.3);
+                border: 0.05rem solid rgba($context, 0.3);
+                border-radius: 0.5rem;
+                transition:
+                    border-color 0.3s,
+                    background-color 0.3s,
+                    color 0.3s;
+
+                &:hover {
+                    color: $context;
+                    background-color: rgba($context, 0.3);
+                }
+            }
+        }
+    }
+
+    .or {
+        font-size: 0.9rem;
+        color: rgba($context, 0.5);
+        font-weight: 200;
+    }
+
+    .errorMessage {
+        font-size: 1rem;
+        padding: 0.5rem;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0.5rem;
+
+        &[data-satus=true] {
+            background-color: rgba($accept, 0.7);
+        }
+
+        &[data-satus=false] {
+            background-color: rgba($wrong, 0.7);
+        }
+    }
+
+
+    .toolBar {
+        font-size: 1rem;
+    }
+
+    h2 {
+        width: 100%;
+        text-align: center;
+        color: $primary-50;
+        margin: 0;
+    }
+
+    .members {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

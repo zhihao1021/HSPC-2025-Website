@@ -1,0 +1,44 @@
+.loginPage {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0.1rem 0.1rem 0.2rem -0.1rem #000;
+
+    .box {
+        width: min(32rem, 95vw);
+        background-color: $context;
+        border-radius: 0.5rem;
+        padding: 1rem min(5%, 4rem);
+        box-sizing: border-box;
+
+        h1 {
+            color: $context-2;
+            text-align: center;
+            margin: 1rem 0;
+            font-size: min(2rem, 6vw);
+        }
+    }
+
+    a {
+        display: block;
+        background-color: #5865F2;
+        width: 100%;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        border-radius: 0.5rem;
+        margin: 1rem auto;
+        box-shadow: 0.1rem 0.1rem 0.2rem -0.1rem #000;
+        transition: transform 0.3s;
+
+        &:hover {
+            transform: translateY(-0.1rem);
+        }
+    }
+
+    .error {
+        background-color: $wrong;
+        padding: 0.5rem 0.5rem;
+        border-radius: 0.5rem;
+    }
+}

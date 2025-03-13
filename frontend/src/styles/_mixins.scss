@@ -1,0 +1,11 @@
+@mixin width-enough($width) {
+    @media screen and (min-width: $width) {
+        @content;
+    }
+}
+
+@mixin width-not-enough($width) {
+    @media screen and (max-width: $width) {
+        @content;
+    }
+}

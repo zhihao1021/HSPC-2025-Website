@@ -1,0 +1,13 @@
+.cacheImage {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: var(--transition, undefine 0s), filter 0.25s;
+    
+    &[data-loaded=false] {
+        filter: blur(16px);
+    }
+    &[data-loaded=true] {
+        filter: blur(0);
+    }
+}

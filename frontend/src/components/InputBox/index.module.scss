@@ -1,0 +1,46 @@
+.inputBox {
+    position: relative;
+
+    input {
+        display: block;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        line-height: inherit;
+        border: none;
+        outline: none;
+        color: inherit;
+        font-size: inherit;
+        background-color: transparent;
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        height: 0.05rem;
+    }
+
+    &::before {
+        left: 0;
+        width: 100%;
+        background-color: rgba($context, 0.3);
+    }
+
+    &::after {
+        left: 25%;
+        width: 0;
+        background-color: $context;
+        transition: width 0.3s, left 0.3s;
+    }
+
+    &:has(input:focus) {
+        color: #FFF;
+
+        &::after {
+            left: 0;
+            width: 100%;
+        }
+    }
+}
