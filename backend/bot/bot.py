@@ -4,6 +4,7 @@ from discord import (
     Bot,
     ComponentType,
     Guild,
+    Intents,
     Interaction,
     InteractionType,
     TextChannel,
@@ -24,10 +25,12 @@ LANGUAGE_MAP = {
     "ch": "請選擇 %value。",
 }
 
-bot = Bot()
-bot.intents.members = True
+intents = Intents.default()
+intents.members = True
 permission = Permissions.none()
 permission.administrator = True
+
+bot = Bot(intents=intents)
 
 
 @bot.slash_command(
