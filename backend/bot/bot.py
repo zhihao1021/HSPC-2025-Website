@@ -53,7 +53,7 @@ async def init_message(ctx: ApplicationContext):
 )
 async def auto_verify(ctx: ApplicationContext):
     guild: Guild = ctx.guild
-    members = guild.members
+    members = list(await guild.fetch_members())
     id_list = list(map(lambda member: str(member.id), members))
 
     before_count = await UserData.find_many(UserData.valid == False).count()
