@@ -17,6 +17,7 @@ class DiscordConfig(BaseModel):
     redirect_uri: str = ""
     client_id: str = ""
     client_secret: str = ""
+    admin_list: list[str] = []
 
 
 class Config(BaseModel):
@@ -50,6 +51,7 @@ if __name__ == "config":
     DISCORD_REDIRECT_URI = config.discord_config.redirect_uri
     DISCORD_CLIENT_ID = config.discord_config.client_id
     DISCORD_CLIENT_SECRET = config.discord_config.client_secret
+    DISCORD_ADMIN_LIST = config.discord_config.admin_list
 
     with open("config.json", "wb") as config_file:
         config_file.write(dumps(config.model_dump(), option=OPT_INDENT_2))

@@ -1,0 +1,53 @@
+.historyPage {
+    width: $content-width;
+    margin: auto;
+    padding-top: 4.5rem;
+
+    .row {
+        margin: 1.5rem 0;
+        box-sizing: border-box;
+        padding: 0.5rem 1rem;
+        border: 0.1rem solid rgba($context, 0.3);
+        border-radius: 0.5rem;
+
+        .key {
+            font-size: 1.25rem;
+
+        }
+
+        .mask {
+            margin: 0.5rem 0;
+            width: 100%;
+
+            .box {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+
+                a {
+                    flex: 1;
+                    display: flex;
+                    gap: 0.5rem;
+                    align-items: center;
+                    box-sizing: border-box;
+                    padding: 0.5rem;
+                    background-color: rgba($context, 0.1);
+                    border-radius: 0.5rem;
+                    box-shadow: 0.1rem 0.1rem 0.2rem -0.1rem #000;
+                    transition: background-color 0.3s, transform 0.3s;
+
+                    &:hover {
+                        transform: translateY(-0.15rem);
+
+                        span:last-child {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

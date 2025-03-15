@@ -5,6 +5,16 @@
     gap: 2rem;
     color: #FFF;
 
+    .mention {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 1rem;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        text-align: justify;
+        background-color: rgba($wrong, 0.7);
+    }
+
     .toolBar {
         font-size: 1rem;
     }

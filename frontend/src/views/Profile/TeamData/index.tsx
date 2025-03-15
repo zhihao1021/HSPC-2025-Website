@@ -42,12 +42,11 @@ export default function TeamData(props: propsType): ReactNode {
         if (joinTeamId === "") return;
         setLoading(true)
         joinTeam(joinTeamId).then(() => {
-            updateData();
             setUpdateResult({ success: true, message: "加入成功" })
         }).catch(() => {
             setUpdateResult({ success: false, message: "加入失敗" })
         }).finally(() => {
-            setLoading(false);
+            updateData();
             setTimeout(() => setUpdateResult(undefined), 5000)
         });
     }, [joinTeamId]);
@@ -58,12 +57,11 @@ export default function TeamData(props: propsType): ReactNode {
         updateTeam(
             { name: teamName }
         ).then(() => {
-            updateData();
             setUpdateResult({ success: true, message: "更新成功" })
         }).catch(() => {
             setUpdateResult({ success: false, message: "更新失敗" })
         }).finally(() => {
-            setLoading(false);
+            updateData();
             setTimeout(() => setUpdateResult(undefined), 5000)
         });
     }, [teamName, setLoading]);
@@ -71,8 +69,9 @@ export default function TeamData(props: propsType): ReactNode {
     const verifyStatus = useMemo(() => {
         if (!memberData.team) return false;
         if (memberData.team.members.length < 2) return false;
+        if (memberData.team.members.length > 3) return false;
 
-        return memberData.team.members.reduce((v, v2) => v && v2.valid && v2.verify, true)
+        return memberData.team.members.reduce((v, v2) => v && v2.valid === true && v2.verify === true, true)
     }, [memberData]);
 
     useEffect(() => {

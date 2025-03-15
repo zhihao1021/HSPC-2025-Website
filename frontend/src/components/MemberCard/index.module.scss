@@ -1,4 +1,5 @@
 .memberCard {
+    position: relative;
     width: 100%;
     box-sizing: border-box;
     padding: 1rem;
@@ -6,8 +7,66 @@
     border-radius: 0.5rem;
     font-size: 1rem;
     display: flex;
+    gap: 0.5rem 1.5rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    isolation: isolate;
+
+    .loading {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        height: calc(100% - 2rem);
+        width: calc(100% - 2rem);
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    &:has(.imgBox) {
+        .imgBox {
+            width: calc(max(25%, min(24vh, 50%)) - 1.5rem);
+
+            @include width-not-enough(42rem) {
+                width: 100%;
+            }
+
+            .key {
+                font-size: 0.8em;
+                color: rgba($context, 0.5);
+                margin-bottom: 0.25rem;
+                height: 1.2rem;
+                line-height: 1.2rem;
+            }
+
+            img {
+                width: 100%;
+                height: calc(100% - 1.45rem);
+                max-height: 18vh;
+                display: block;
+                object-fit: contain;
+                object-position: center;
+
+                @include width-not-enough(64rem) {
+                    width: min(16rem, 100%);
+                    margin: auto;
+                }
+            }
+        }
+
+        .box {
+            width: calc(100% - max(25%, min(24vh, 50%)));
+
+            @include width-not-enough(42rem) {
+                width: 100%;
+            }
+        }
+    }
+
+    .box {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
 
     .avatarBar {
         display: flex;
@@ -21,11 +80,60 @@
             height: 100%;
             border-radius: 50%;
         }
+
+        .displayName {
+            overflow: hidden;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        button:first-of-type {
+            margin-left: auto;
+        }
+
+        button {
+            font-size: 0.9rem;
+            background-color: transparent;
+            border: 0.05rem solid;
+            padding: 0.25rem 1rem;
+            border-radius: 0.5rem;
+            transition:
+                color 0.3s,
+                border-color 0.3s,
+                background-color 0.3s,
+                transform 0.3s,
+                box-shadow 0.3s;
+
+            &:hover {
+                transform: translateY(-0.1rem);
+                box-shadow: 0.1rem 0.1rem 0.2rem -0.1rem #000;
+            }
+
+            &[data-verify=true] {
+                color: $accept;
+                border-color: $accept;
+
+                &:hover {
+                    color: $context;
+                    background-color: $accept;
+                    border-color: $accept;
+                }
+            }
+
+            &[data-verify=false] {
+                color: $wrong;
+                border-color: $wrong;
+
+                &:hover {
+                    color: $context;
+                    background-color: $wrong;
+                    border-color: $wrong;
+                }
+            }
+        }
     }
 
-    .field {
-        width: calc((100% - 1.5rem) / 4);
-
+    &:not([data-manage]) .field {
         @include width-not-enough(64rem) {
             width: calc((100% - 1.5rem) / 3);
         }
@@ -33,14 +141,35 @@
         @include width-not-enough(42rem) {
             width: calc((100% - 1.5rem) / 2);
         }
+    }
+
+    &[data-manage=true] .field {
+        @include width-not-enough(86rem) {
+            width: calc((100% - 1.5rem) / 3);
+        }
+
+        @include width-not-enough(72rem) {
+            width: calc((100% - 1.5rem) / 2);
+        }
+
+        @include width-not-enough(52rem) {
+            width: 100%;
+        }
+    }
+
+    .field {
+        width: calc((100% - 1.5rem) / 4);
+
 
         .key {
             font-size: 0.8em;
             color: rgba($context, 0.5);
+            margin-bottom: 0.25rem;
         }
 
         .value {
             text-wrap: nowrap;
+            width: fit-content;
             max-width: 100%;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -51,6 +180,10 @@
 
             &[data-status=false] {
                 color: $wrong;
+            }
+
+            &[data-status=null] {
+                color: $pending;
             }
         }
     }

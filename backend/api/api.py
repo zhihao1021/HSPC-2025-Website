@@ -9,6 +9,7 @@ from bot import run_bot
 from config import HOST, ORIGINS, PORT
 
 from .routers import (
+    manage_router,
     member_router,
     oauth_router,
     team_router
@@ -18,12 +19,12 @@ from .routers import (
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     loop = get_running_loop()
-    task = loop.create_task(run_bot(), name="Discord Bot")
+    # task = loop.create_task(run_bot(), name="Discord Bot")
 
     yield
 
-    if not task.done():
-        task.cancel()
+    # if not task.done():
+    #     task.cancel()
 
 app = FastAPI(lifespan=lifespan)
 app.add_middleware(
@@ -34,6 +35,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(manage_router)
 app.include_router(member_router)
 app.include_router(oauth_router)
 app.include_router(team_router)

@@ -2,18 +2,16 @@ import { ReactNode } from "react";
 
 import style from "./index.module.scss";
 
-const pdfLink = "https://hspc.csie.ncku.edu.tw/static/pdf/2024第十屆國立成功大學暑期高中生程式設計邀請賽.pdf";
-
 export default function Info(): ReactNode {
     return <div className={style.info}>
         <div className={style.box}>
             <h2>比賽說明</h2>
             <object
-                data={pdfLink}
+                data={`${import.meta.env.BASE_URL}/2025 第 11 屆國立成功大學暑期高中生程式設計邀請賽0309.pdf`}
                 type="application/pdf"
             >
                 <a
-                    href={pdfLink}
+                    href={`${import.meta.env.BASE_URL}/2025 第 11 屆國立成功大學暑期高中生程式設計邀請賽0309.pdf`}
                     target="_blank"
                     referrerPolicy="no-referrer"
                 >PDF Link</a>

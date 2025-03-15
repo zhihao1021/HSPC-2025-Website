@@ -24,6 +24,7 @@ import TeamData from "./TeamData";
 import Others from "./Others";
 
 import style from "./index.module.scss";
+import LoadingBox from "@/components/LoadingBox";
 
 const tabs = {
     "個人資料": "/profile/personal",
@@ -38,7 +39,7 @@ const defaultMemberData: MemberData = {
     school: "",
     team: null,
     valid: false,
-    verify: false
+    verify: null
 }
 
 export default function ProfilePage(): ReactNode {
@@ -107,12 +108,16 @@ export default function ProfilePage(): ReactNode {
         <div className={style.loading} data-show={loading || memberData === null}>{
             Array.from(Array(5)).map((_, index) => <div key={index} />)
         }</div>
+        <div className={style.loading}>
+            <LoadingBox show={loading || memberData === null} />
+        </div>
         <Routes>
             <Route path="personal" element={<PersonalData
                 memberData={memberData ?? defaultMemberData}
                 sidImage={updateSidImage}
                 updateValue={updateValue}
                 updateSidImage={setUpdateSidImage}
+                updateData={updateMemberData}
                 update={submit}
                 setLoading={setLoading}
             />} />

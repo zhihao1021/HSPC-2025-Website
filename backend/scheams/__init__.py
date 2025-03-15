@@ -10,6 +10,7 @@ from .user import (
     DiscordUserData,
     MemberData,
     MemberDataBase,
+    MemberDataForManage,
     MemberDataInTeam,
     MemberDataView,
     MemberDataUpdate,

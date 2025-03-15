@@ -10,7 +10,7 @@ const scssOptions: Array<string> = [
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/hspc2025/",
+  base: "/2025/",
   server: {
     port: 3000
   },

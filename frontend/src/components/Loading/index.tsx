@@ -13,7 +13,9 @@ export default function Loading(props: propsType): ReactNode {
 
     return <div className={style.loading} data-show={show}>
         <div className={style.box}>
-            Loading...
+            {
+                Array.from(Array(5)).map((_, index) => <div key={index}></div>)
+            }
         </div>
     </div>
 }

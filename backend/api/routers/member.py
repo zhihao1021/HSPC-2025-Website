@@ -7,7 +7,7 @@ from fastapi import (
     UploadFile
 )
 
-from typing import Annotated
+from typing import Annotated, Optional
 
 from scheams import (
     MemberDataView,
@@ -72,7 +72,7 @@ async def update_member_data(
     user: UserDepends
 ) -> MemberDataView:
     await user.fetch_all_links()
-    return await user.set({"verify": False, **data.model_dump()})
+    return await user.set({"verify": None, **data.model_dump()})
 
 
 @router.post(
@@ -84,5 +84,5 @@ async def update_member_sid_image(image: UploadFile, user: UserDepends) -> None:
         raise FILE_TOO_LARGE
 
     user.sid_image = await image.read()
-    user.verify = False
+    user.verify = None
     await user.save()

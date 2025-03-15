@@ -30,6 +30,7 @@ export default function TopBar(): ReactNode {
                 <Link to="/about" >關於競賽</Link>
                 <Link to="/info" >比賽說明</Link>
                 <Link to="/traffic" >交通資訊</Link>
+                <Link to="/tutorial" >如何報名</Link>
                 <Link to="/history" >歷屆試題</Link>
             </div>
             {

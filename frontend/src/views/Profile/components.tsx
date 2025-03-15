@@ -18,21 +18,24 @@ type defaultType = Readonly<{
     name: string,
     value: string,
     className?: string
+    smallest?: boolean
 }>;
 
 function BaseField(props: {
     name: string,
     className?: string,
-    children: ReactNode
+    children: ReactNode,
+    smallest?: boolean
 }): ReactNode {
     const {
         name,
         className,
-        children
+        children,
+        smallest
     } = props
 
     return <div className={`${style.field} ${className}`} >
-        <div className={style.name} data-small={name.length > 5}>{name}</div>
+        <div className={style.name} data-small={name.length > 5} data-smallest={smallest ?? false}>{name}</div>
         {children}
     </div >;
 }
@@ -78,19 +81,20 @@ export function CopyField(props: defaultType): ReactNode {
 }
 
 export function StatusField(props: {
-    status: boolean,
+    status: boolean | null,
 } & defaultType): ReactNode {
     const {
         status,
         name,
         value,
-        className
+        className,
+        smallest
     } = props;
 
-    return <BaseField name={name} className={className}>
+    return <BaseField name={name} className={className} smallest={smallest}>
         <div
             className={style.value}
-            data-status={status}
+            data-status={status ?? "null"}
         >{value}</div>
     </BaseField>;
 }

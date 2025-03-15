@@ -23,8 +23,10 @@ export default function FirstView(): ReactNode {
                 <h1>HSPC 2025</h1>
                 <h2>國立成功大學暑期高中生程式設計邀請賽</h2>
                 <div className={style.info}>
-                    <div>初賽：2024-04-14</div>
-                    <div>決賽：2024-07-26</div>
+                    {/* <div>初賽：2024-04-14</div>
+                    <div>決賽：2024-07-26</div> */}
+                    <div>初賽：2025-04-13</div>
+                    <div>決賽：2025-08-01</div>
                     <div>地點：國立成功大學 資訊工程學系</div>
                 </div>
             </div>

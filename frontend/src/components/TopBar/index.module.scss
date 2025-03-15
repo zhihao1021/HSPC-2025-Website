@@ -24,21 +24,30 @@
         width: $nav-bar-width;
         margin: 0 auto;
         display: flex;
-        gap: 2rem;
+        gap: min(2rem, 3vw);
         align-items: center;
 
         a:has(img) {
             display: block;
             height: 100%;
+            max-width: 30%;
 
             img {
                 height: 100%;
+                width: 100%;
+                object-fit: contain;
+                object-position: center;
             }
         }
 
         .menu {
             margin-left: auto;
             display: flex;
+            
+            @include width-not-enough(72rem) {
+                overflow-x: auto;
+                max-width: calc(70% - min(4rem, 6vw) - min(2.37rem, 8vw));
+            }
 
             a {
                 width: 4.5em;
@@ -51,17 +60,23 @@
 
                 &:hover {
                     color: $primary-700;
-                    transform: scale(1.5);
+
+                    @include width-enough(72rem) {
+                        transform: scale(1.5);
+                    }
                 }
             }
 
-            a:has(~a:hover) {
-                transform: translateX(-1.5rem);
+            @include width-enough(72rem) {
+                a:has(~a:hover) {
+                    transform: translateX(-1.5rem);
+                }
+
+                a:hover~a {
+                    transform: translateX(1.5rem);
+                }
             }
 
-            a:hover~a {
-                transform: translateX(1.5rem);
-            }
         }
 
         .login {
@@ -86,8 +101,7 @@
         }
 
         .imgBox {
-            display: block;
-            height: 100%;
+            height: min(2.37rem, 8vw);
             aspect-ratio: 1/1;
             overflow: hidden;
             border-radius: 50%;

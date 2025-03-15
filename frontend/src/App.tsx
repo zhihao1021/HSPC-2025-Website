@@ -9,8 +9,12 @@ import {
 import HomePage from "@/views/Home";
 import ProfilePage from "@/views/Profile";
 import LoginPage from "@/views/Login";
+import HistoryPage from "./views/History";
+import TutorialPage from "./views/Tutorial";
+import ManagePage from "./views/Manage";
 
 import TopBar from "@/components/TopBar";
+import Loading from "./components/Loading";
 
 import userDataContext from "@/context/userData";
 
@@ -18,7 +22,6 @@ import cacheAll from "@/utils/cacheAll";
 
 import JWT from "@/schemas/jwt";
 import UserData from "@/schemas/userData";
-import Loading from "./components/Loading";
 
 type propsType = Readonly<{
     setUserData: Dispatch<SetStateAction<UserData | undefined | null>>
@@ -37,7 +40,10 @@ export function App(props: propsType): ReactNode {
         <Routes>
             <Route path="/*" element={<HomePage />} />
             <Route path="login" element={<LoginPage setLoading={setLoading} setUserData={setUserData} />} />
-            {userData === null ? undefined : <Route path="/profile/*" element={<ProfilePage />} />}
+            <Route path="history" element={<HistoryPage />} />
+            <Route path="tutorial" element={<TutorialPage />} />
+            <Route path="manage" element={<ManagePage />} />
+            {userData === null ? undefined : <Route path="profile/*" element={<ProfilePage />} />}
         </Routes>
     </>;
 };

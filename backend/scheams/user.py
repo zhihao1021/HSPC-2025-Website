@@ -1,7 +1,14 @@
 from beanie import Link, Document, Indexed
 from pydantic import BaseModel, Field, model_validator
 
-from typing import Annotated, Literal, Optional, TYPE_CHECKING
+from base64 import b64encode
+from typing import (
+    Annotated,
+    Literal,
+    Optional,
+    TYPE_CHECKING,
+    Union
+)
 
 if TYPE_CHECKING:
     from .team import TeamData, TeamDataView
@@ -134,8 +141,8 @@ class MemberDataBase(MemberDataUpdate):
         title="Valid",
         description="Whether user is validated."
     )
-    verify: bool = Field(
-        default=False,
+    verify: Optional[bool] = Field(
+        default=None,
         title="Verify",
         description="Weter user is verify by sid."
     )
@@ -143,6 +150,27 @@ class MemberDataBase(MemberDataUpdate):
 
 class MemberDataInTeam(MemberDataBase, DiscordUserData):
     pass
+
+
+class MemberDataForManage(MemberDataBase, DiscordUserData):
+    encode_image: Optional[str] = Field(
+        default=None,
+        title="Encode SID Image",
+        description="SID image with base64 encode"
+    )
+
+    @model_validator(mode="before")
+    def generate_team_id(cls, data: Union[dict, BaseModel]):
+        try:
+            if hasattr(data, "sid_image"):
+                sid_image: Optional[bytes] = data.sid_image
+                data = data.model_dump()
+            else:
+                sid_image: Optional[bytes] = data.get("sid_image")
+            data["encode_image"] = b64encode(sid_image) if sid_image else None
+        except:
+            pass
+        return data
 
 
 class MemberData(MemberDataBase):

@@ -58,6 +58,7 @@ type propsType = Readonly<{
     ) => void,
     updateSidImage: (file: Blob) => void,
     update: () => Promise<void>,
+    updateData: () => void,
     setLoading: Dispatch<SetStateAction<boolean>>
 }>;
 
@@ -68,6 +69,7 @@ export default function PersonalData(props: propsType): ReactNode {
         updateValue,
         updateSidImage,
         update,
+        updateData,
         setLoading
     } = props;
 
@@ -88,7 +90,7 @@ export default function PersonalData(props: propsType): ReactNode {
             success: false,
             message: message
         })).finally(() => {
-            setLoading(false);
+            updateData()
             setTimeout(() => setUpdateResult(undefined), 5000)
         });
     }, [update]);
@@ -98,7 +100,7 @@ export default function PersonalData(props: propsType): ReactNode {
         <StatusField
             status={memberData.verify}
             name="驗證狀態"
-            value={memberData.verify ? "已驗證" : "等待驗證中"}
+            value={memberData.verify === null ? "驗證中" : memberData.verify ? "已驗證" : "驗證失敗"}
         />
         <TextInputField
             name="姓名"
@@ -132,6 +134,9 @@ export default function PersonalData(props: propsType): ReactNode {
             defaultString="尚未上傳"
             changeString="變更照片"
         />
+        {
+            memberData.verify === true ? <div className={style.mention}>注意：你已經驗證完成，在按下"儲存資料"以後，將會需要重新等待驗證。</div> : undefined
+        }
         <ToolBar
             result={updateResult}
             canSubmit={memberData && Object.values(memberData).reduce((v, v2) => v && v2 !== "", true)}

@@ -21,6 +21,10 @@
         &[data-small=true] {
             font-size: 0.85em;
         }
+
+        &[data-smallest=true] {
+            font-size: 0.7em;
+        }
     }
 
     .value {
@@ -32,6 +36,10 @@
 
         &[data-status=false] {
             color: $wrong;
+        }
+
+        &[data-status=null] {
+            color: $pending;
         }
     }
 
