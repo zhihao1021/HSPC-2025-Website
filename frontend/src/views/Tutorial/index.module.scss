@@ -25,6 +25,10 @@
             color: $wrong;
         }
 
+        span[data-status=null] {
+            color: $pending;
+        }
+
         h3 {
             margin-bottom: 0;
         }

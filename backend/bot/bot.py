@@ -1,7 +1,9 @@
+from beanie.operators import And, In
 from discord import (
     ApplicationContext,
     Bot,
     ComponentType,
+    Guild,
     Interaction,
     InteractionType,
     TextChannel,
@@ -43,6 +45,24 @@ async def init_message(ctx: ApplicationContext):
     channel: TextChannel = ctx.channel
     await channel.send(view=view)
     await ctx.respond("Message send.", ephemeral=True)
+
+
+@bot.slash_command(
+    default_member_permissions=permission,
+    name="auto_verify",
+)
+async def auto_verify(ctx: ApplicationContext):
+    guild: Guild = ctx.guild
+    members = guild.members
+    id_list = list(map(lambda member: str(member.id), members))
+
+    before_count = await UserData.find_many(UserData.valid == False).count()
+    await UserData.find_many(
+        And(UserData.valid == False, In(UserData.discord_id, id_list))
+    ).set({"valid": True})
+    after_count = await UserData.find_many(UserData.valid == False).count()
+
+    await ctx.respond(f"Auto verify finished, member count: {len(members)}\nBefore count: {before_count}\nAfter count: {after_count}", ephemeral=True)
 
 
 @bot.event

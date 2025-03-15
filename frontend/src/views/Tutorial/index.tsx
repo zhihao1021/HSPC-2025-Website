@@ -43,9 +43,14 @@ export default function TutorialPage(): ReactNode {
         </div>
         <div>
             <span>填寫完成後，等待主辦單位進行檢查，當檢查通過後驗證狀態將由</span>
-            <span data-status={false}>等待驗證中</span>
+            <span data-status="null">驗證中</span>
             <span>轉為</span>
-            <span data-status={true}>已驗證</span>
+            <span data-status="true">已驗證</span>
+            <span>。</span>
+        </div>
+        <div>
+            <span>如果驗證不通過的話將會顯示</span>
+            <span data-status="false">驗證失敗</span>
             <span>。</span>
         </div>
         <h2>4. 創建或加入隊伍</h2>
@@ -78,9 +83,9 @@ export default function TutorialPage(): ReactNode {
         </div>
         <div>
             <span>當隊伍中至少有兩位、至多三位隊員，並且所有隊員皆通過 Discord 驗證以及資格驗證後，隊伍的資格狀態會自動由</span>
-            <span data-status={false}>不符資格</span>
+            <span data-status="false">不符資格</span>
             <span>轉為</span>
-            <span data-status={true}>符合資格</span>
+            <span data-status="true">符合資格</span>
             <span>。</span>
         </div>
     </div>;
