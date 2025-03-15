@@ -25,6 +25,7 @@ LANGUAGE_MAP = {
 }
 
 bot = Bot()
+bot.intents.members = True
 permission = Permissions.none()
 permission.administrator = True
 
