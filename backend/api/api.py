@@ -19,12 +19,12 @@ from .routers import (
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     loop = get_running_loop()
-    # task = loop.create_task(run_bot(), name="Discord Bot")
+    task = loop.create_task(run_bot(), name="Discord Bot")
 
     yield
 
-    # if not task.done():
-    #     task.cancel()
+    if not task.done():
+        task.cancel()
 
 app = FastAPI(lifespan=lifespan)
 app.add_middleware(
