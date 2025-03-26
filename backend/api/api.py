@@ -47,7 +47,8 @@ async def run_api():
         host=HOST,
         port=PORT,
         timeout_graceful_shutdown=5,
-        proxy_headers=True
+        proxy_headers=True,
+        forwarded_allow_ips="*"
     )
     server = Server(config=config)
 
