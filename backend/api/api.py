@@ -46,7 +46,8 @@ async def run_api():
         app=app,
         host=HOST,
         port=PORT,
-        timeout_graceful_shutdown=5
+        timeout_graceful_shutdown=5,
+        proxy_headers=True
     )
     server = Server(config=config)
 
