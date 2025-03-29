@@ -14,7 +14,7 @@ class MongoDBConfig(BaseModel):
 class DiscordConfig(BaseModel):
     bot_token: str = ""
     custom_id: str = urandom(4).hex()
-    redirect_uri: str = ""
+    redirect_uris: list[str] = [""]
     client_id: str = ""
     client_secret: str = ""
     admin_list: list[str] = []
@@ -48,7 +48,7 @@ if __name__ == "config":
 
     DISCORD_BOT_TOKEN = config.discord_config.bot_token
     DISCORD_CUSTOM_ID = config.discord_config.custom_id
-    DISCORD_REDIRECT_URI = config.discord_config.redirect_uri
+    DISCORD_REDIRECT_URIS = config.discord_config.redirect_uris
     DISCORD_CLIENT_ID = config.discord_config.client_id
     DISCORD_CLIENT_SECRET = config.discord_config.client_secret
     DISCORD_ADMIN_LIST = config.discord_config.admin_list

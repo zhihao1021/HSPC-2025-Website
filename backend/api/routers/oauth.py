@@ -3,6 +3,7 @@ from fastapi import (
     APIRouter,
     Depends,
     HTTPException,
+    Request,
     Security,
     status,
 )
@@ -18,7 +19,7 @@ from typing import Annotated, Optional
 
 from config import (
     JWT_KEY,
-    DISCORD_REDIRECT_URI,
+    DISCORD_REDIRECT_URIS,
     DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET
 )
@@ -96,6 +97,7 @@ async def fetch_user_data(token_data: DiscordTokenData) -> DiscordUserData:
 async def valid_code(
     code: Optional[str] = None,
     token: Optional[str] = None,
+    redirect_uri: Optional[str] = None
 ) -> UserData:
     if code is None and token is None:
         raise ValueError
@@ -106,7 +108,7 @@ async def valid_code(
         data = {
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": DISCORD_REDIRECT_URI,
+            "redirect_uri": redirect_uri,
         } if code else {
             "grant_type": "refresh_token",
             "refresh_token": token
@@ -149,9 +151,14 @@ async def valid_code(
     status_code=status.HTTP_201_CREATED,
     description="Get token by discord code"
 )
-async def oauth(data: OAuthData) -> JWT:
+async def oauth(data: OAuthData, request: Request) -> JWT:
+    request_uri = request.headers.get("referer")
+    if request_uri not in DISCORD_REDIRECT_URIS:
+        request_uri = DISCORD_REDIRECT_URIS[0]
+
     user_data = await valid_code(
-        code=data.code
+        code=data.code,
+        redirect_uri=request_uri
     )
 
     jwt_payload = JWTPayload(**user_data.model_dump())
