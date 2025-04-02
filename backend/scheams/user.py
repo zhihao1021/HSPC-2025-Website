@@ -153,11 +153,7 @@ class MemberDataInTeam(MemberDataBase, DiscordUserData):
 
 
 class MemberDataForManage(MemberDataBase, DiscordUserData):
-    encode_image: Optional[str] = Field(
-        default=None,
-        title="Encode SID Image",
-        description="SID image with base64 encode"
-    )
+    has_image: bool
 
     @model_validator(mode="before")
     def generate_team_id(cls, data: Union[dict, BaseModel]):
@@ -167,7 +163,7 @@ class MemberDataForManage(MemberDataBase, DiscordUserData):
                 data = data.model_dump()
             else:
                 sid_image: Optional[bytes] = data.get("sid_image")
-            data["encode_image"] = b64encode(sid_image) if sid_image else None
+            data["has_image"] = sid_image != None
         except:
             pass
         return data

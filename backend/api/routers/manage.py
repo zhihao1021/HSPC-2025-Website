@@ -3,6 +3,7 @@ from fastapi import (
     Depends,
     Body,
     HTTPException,
+    Response,
     status
 )
 
@@ -74,6 +75,21 @@ async def get_user_data(discord_id: str) -> MemberDataForManage:
         raise USER_NOT_FOUND
 
     return user
+
+
+@router.get(
+    path="/member/{discord_id}/image"
+)
+async def get_user_data(discord_id: str) -> Response:
+    user = await UserData.find_one(
+        UserData.discord_id == discord_id,
+        fetch_links=True
+    )
+
+    if user.sid_image is None:
+        return None
+
+    return Response(content=user.sid_image)
 
 
 @router.put(
