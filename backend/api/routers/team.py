@@ -52,6 +52,7 @@ async def join_team(
     team_id: Annotated[str, Body(embed=True)],
     user: UserDepends
 ) -> TeamDataView:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
     await user.fetch_all_links()
 
     if user.team:
@@ -80,6 +81,7 @@ async def create_team(
     data: TeamDataCreate,
     user: UserDepends
 ) -> TeamDataView:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
     await user.fetch_all_links()
 
     team: TeamData = user.team or TeamData(
@@ -102,6 +104,7 @@ async def create_team(
 async def leave_team(
     user: UserDepends
 ):
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
     await user.fetch_all_links()
 
     if user.team is None:

@@ -71,6 +71,7 @@ async def update_member_data(
     data: MemberDataUpdate,
     user: UserDepends
 ) -> MemberDataView:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
     await user.fetch_all_links()
     return await user.set({"verify": None, **data.model_dump()})
 
@@ -80,6 +81,7 @@ async def update_member_data(
     status_code=status.HTTP_201_CREATED,
 )
 async def update_member_sid_image(image: UploadFile, user: UserDepends) -> None:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
     if image.size > FILE_LIMIT:
         raise FILE_TOO_LARGE
 
