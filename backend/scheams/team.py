@@ -2,7 +2,7 @@ from bson import ObjectId
 from beanie import Document, Link
 from pydantic import BaseModel, Field, model_validator
 
-from typing import Union, TYPE_CHECKING
+from typing import Optional, Union, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .user import UserData, MemberDataInTeam
@@ -29,6 +29,8 @@ class TeamDataCreate(BaseModel):
 
 class TeamDataBase(TeamDataCreate):
     members: list[Link["UserData"]] = TeamField.members
+    judge_account: Optional[str] = None
+    judge_password: Optional[str] = None
 
 
 class TeamDataViewWithoutId(TeamDataBase):
